@@ -11,9 +11,10 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReduceQuantityRequest {
+public class TransactionPacket {
     UUID txnId;
     String message;
     long itemId;
+    double price;
     int quantity;
 }

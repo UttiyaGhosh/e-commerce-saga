@@ -2,11 +2,10 @@ package com.ug.orderservice.service.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ug.orderservice.model.TransactionParameter;
 import com.ug.orderservice.model.entity.Step;
 import com.ug.orderservice.model.entity.StepStatus;
 import com.ug.orderservice.model.entity.Transaction;
-import com.ug.orderservice.model.kafka.ReduceQuantityRequest;
+import com.ug.orderservice.model.kafka.TransactionPacket;
 import com.ug.orderservice.model.request.PlaceOrderRequest;
 import com.ug.orderservice.repository.TransactionRepository;
 import com.ug.orderservice.service.OrderService;
@@ -45,7 +44,7 @@ public class OrderServiceImpl implements OrderService {
                                 List.of(
                                         Step.builder()
                                                 .message(REDUCE_QUANTITY_MESSAGE)
-                                                .stepStatus(StepStatus.INITIATED)
+                                                .status(StepStatus.INITIATED)
                                                 .createdAt(new Date())
                                                 .build()
                                 ))
@@ -56,7 +55,7 @@ public class OrderServiceImpl implements OrderService {
             kafkaTemplate.send(
                     TXN_STEP_TOPIC,
                     objectMapper.writeValueAsString(
-                            ReduceQuantityRequest.builder()
+                            TransactionPacket.builder()
                                     .txnId(txnId)
                                     .message(REDUCE_QUANTITY_MESSAGE)
                                     .itemId(placeOrderRequest.getItemId())

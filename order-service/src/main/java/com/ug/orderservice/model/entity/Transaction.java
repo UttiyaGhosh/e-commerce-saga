@@ -15,9 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Document(collection = "transaction")
 public class Transaction {
-
     private String _id;
     private Date createdAt;
     private List<Step> steps;
-
 }

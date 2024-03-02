@@ -1,6 +1,6 @@
 package com.ug.orderservice.service.impl;
 
-import com.ug.orderservice.model.TransactionParameter;
+import com.ug.orderservice.model.kafka.TransactionPacket;
 import com.ug.orderservice.service.TransactionStep;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,7 +16,7 @@ public class InsufficientQuantity implements TransactionStep {
     }
 
     @Override
-    public void execute(TransactionParameter transactionParameter) {
+    public void execute(TransactionPacket transactionParameter) {
 
     }
 }

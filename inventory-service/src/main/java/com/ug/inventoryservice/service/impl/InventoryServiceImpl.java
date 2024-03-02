@@ -2,7 +2,7 @@ package com.ug.inventoryservice.service.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.ug.inventoryservice.model.kafka.TxnResponse;
+import com.ug.inventoryservice.model.kafka.TransactionResponse;
 import com.ug.inventoryservice.repository.InventoryRepository;
 import com.ug.inventoryservice.service.InventoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +37,7 @@ public class InventoryServiceImpl implements InventoryService {
                 kafkaTemplate.send(
                         TXN_STEP_TOPIC,
                         objectMapper.writeValueAsString(
-                                TxnResponse.builder()
+                                TransactionResponse.builder()
                                         .txnId(txnId)
                                         .message(QUANTITY_REDUCED_MESSAGE)
                                         .build())
@@ -46,7 +46,7 @@ public class InventoryServiceImpl implements InventoryService {
                 kafkaTemplate.send(
                         TXN_STEP_TOPIC,
                         objectMapper.writeValueAsString(
-                                TxnResponse.builder()
+                                TransactionResponse.builder()
                                         .txnId(txnId)
                                         .message(INSUFFICIENT_QUANTITY_MESSAGE)
                                         .build())

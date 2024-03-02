@@ -10,6 +10,6 @@ import java.util.Date;
 @NoArgsConstructor
 public class Step {
     @NonNull private String message;
-    @NonNull private StepStatus stepStatus;
+    @NonNull private StepStatus status;
     private Date createdAt;
 }
