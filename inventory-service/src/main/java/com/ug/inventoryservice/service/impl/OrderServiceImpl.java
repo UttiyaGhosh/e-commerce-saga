@@ -21,7 +21,7 @@ public class OrderServiceImpl implements OrderService {
     private String REDUCE_QUANTITY_MESSAGE;
 
     @Autowired private InventoryService inventoryService;
-    @KafkaListener(topics="${kafka.topic.txn-step}", groupId="my_group_id")
+    @KafkaListener(topics="${kafka.topic.txn-step}", groupId="${kafka.group.id}")
     @Transactional
     public void initiateStep(String txnObjectString){
 

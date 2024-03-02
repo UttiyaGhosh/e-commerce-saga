@@ -16,10 +16,9 @@ import java.util.UUID;
 @Service
 public class InventoryServiceImpl implements InventoryService {
 
-    @Value("${kafka.topic.txn-success}")
-    private String TXN_SUCCESS_TOPIC;
-    @Value("${kafka.topic.txn-fail}")
-    private String TXN_FAIL_TOPIC;
+    @Value("${kafka.topic.txn-step}")
+    private String TXN_STEP_TOPIC;
+
     @Value("${kafka.message.quantity_reduced}")
     private String QUANTITY_REDUCED_MESSAGE;
     @Value("${kafka.message.insufficient_quantity}")
@@ -36,7 +35,7 @@ public class InventoryServiceImpl implements InventoryService {
         try {
             if(inventoryRepository.reduceQuantity(itemId,quantity)==1) {
                 kafkaTemplate.send(
-                        TXN_SUCCESS_TOPIC,
+                        TXN_STEP_TOPIC,
                         objectMapper.writeValueAsString(
                                 TxnResponse.builder()
                                         .txnId(txnId)
@@ -45,7 +44,7 @@ public class InventoryServiceImpl implements InventoryService {
                 );
             }else {
                 kafkaTemplate.send(
-                        TXN_FAIL_TOPIC,
+                        TXN_STEP_TOPIC,
                         objectMapper.writeValueAsString(
                                 TxnResponse.builder()
                                         .txnId(txnId)
